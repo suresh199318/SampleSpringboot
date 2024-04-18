@@ -1,0 +1,22 @@
+<settings>
+    <!-- Define repositories -->
+    <mirrors>
+        <mirror>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <mirrorOf>central</mirrorOf>
+        </mirror>
+    </mirrors>
+    
+    <!-- Define proxy settings -->
+    <proxies>
+        <proxy>
+            <id>example-proxy</id>
+            <active>true</active>
+            <protocol>http</protocol>
+            <host>proxy.example.com</host>
+            <port>8080</port>
+            <nonProxyHosts>localhost|127.*.*.*</nonProxyHosts>
+        </proxy>
+    </proxies>
+</settings>
