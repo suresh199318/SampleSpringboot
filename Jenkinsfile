@@ -6,8 +6,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-              // Get some code from a GitHub repository
-                git 'https://github.com/UpendraKakarla/spring-boot-hello-world-jenkins.git'
+              // Get some code from a GitHub repositor
                 sh 'mvn clean package'
             }
         }
