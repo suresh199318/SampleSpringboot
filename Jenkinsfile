@@ -7,7 +7,7 @@ pipeline {
         stage('Build') {
             steps {
               // Get some code from a GitHub repositor
-                sh 'mvn clean package'
+                sh 'cd mvn clean package'
             }
         }
         stage('Test') {
@@ -24,7 +24,7 @@ pipeline {
     }*/
      environment {
         DOCKERHUB_CREDENTIALS = credentials('docker')
-        DOCKER_IMAGE = 'upendrakakarla572@gmail.com/spring-boot-2-hello-world:latest'
+        DOCKER_IMAGE = 'upendrakakarla/spring-boot-2-hello-world:latest'
     }
 
     stages {
