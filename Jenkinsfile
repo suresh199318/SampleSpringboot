@@ -12,6 +12,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                sh 'ls -ltr'
                 // Checkout the code from the repository
                 checkout([$class: 'GitSCM', 
                               branches: [[name: '*/main']], 
