@@ -11,17 +11,17 @@ pipeline {
 
     stages {
 
-        stage('Build and Test') {
-      steps {
-        sh 'ls -ltr'
-        // build the project and create a JAR file
-        sh 'mvn clean package'
-      }
-    }
+    //     stage('Build and Test') {
+    //   steps {
+    //     sh 'ls -ltr'
+    //     // build the project and create a JAR file
+    //     sh 'mvn clean package'
+    //   }
+    // }
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build(Dockerfile)
+                    docker.build(DOCKER_IMAGE)
                 }
             }
         }
