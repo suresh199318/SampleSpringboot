@@ -22,4 +22,45 @@ pipeline {
             }
         }
     }
+     environment {
+        DOCKERHUB_CREDENTIALS = credentials('docker')
+        DOCKER_IMAGE = 'upendrakakarla572@gmail.com/spring-boot-app:latest'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    docker.image('maven:3.8.5-openjdk-11').inside {
+                        sh 'mvn clean package -DskipTests'
+                    }
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build(DOCKER_IMAGE)
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://hub.docker.com/', 'DOCKERHUB_CREDENTIALS') {
+                        docker.image(DOCKER_IMAGE).push()
+                    }
+                }
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                script {
+                    docker.image(DOCKER_IMAGE).run('-p 8081:8080')
+                }
+            }
+        }
 }
