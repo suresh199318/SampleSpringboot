@@ -14,7 +14,7 @@ pipeline {
             }
         }
 
-        }
+        
 
         stage('Build Docker Image') {
             steps {
@@ -35,7 +35,7 @@ pipeline {
         // Docker image name and tag
         DOCKER_IMAGE = 'your-dockerhub-username/spring-boot-app:latest'
     }
-
+                                                  }
     stages {
         stage('Checkout') {
             steps {
