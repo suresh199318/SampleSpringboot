@@ -17,7 +17,7 @@ pipeline {
             steps {
                 // Build the Docker image using the Dockerfile in the repository
                 script {
-                    docker.build(env.DOCKER_IMAGE)
+                    docker.build(https://github.com/UpendraKakarla/spring-boot-hello-world-jenkins/tree/main)
                 }
             }
         }
@@ -38,7 +38,7 @@ pipeline {
     post {
         always {
             echo 'Pipeline completed.'
-
+        }
         success {
             echo 'Docker image was built and pushed successfully.'
         }
