@@ -24,7 +24,7 @@ pipeline {
     }
      environment {
         DOCKERHUB_CREDENTIALS = credentials('docker')
-        DOCKER_IMAGE = 'upendrakakarla572@gmail.com/spring-boot-app:latest'
+        DOCKER_IMAGE = 'upendrakakarla572@gmail.com/spring-boot-2-hello-world:latest'
     }
 
     stages {
