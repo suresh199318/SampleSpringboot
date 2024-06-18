@@ -13,11 +13,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 sh 'ls -ltr'
-                // Checkout the code from the repository
-                checkout([$class: 'GitSCM', 
-                              branches: [[name: '*/main']], 
-                              userRemoteConfigs: [[url: 'https://github.com/UpendraKakarla/spring-boot-hello-world-jenkins.git', credentialsId: "${git}"]]
-                    ])
+               git 'https://github.com/UpendraKakarla/spring-boot-hello-world-jenkins.git'
                 echo 'checkout done'
             }
         }
