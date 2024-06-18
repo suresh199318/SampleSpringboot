@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     // Build the Spring Boot application
-                    sh './mvnw clean package'
+                    sh './mvn clean package'
 
                     // Build the Docker image
                     def app = docker.build("${DOCKER_REGISTRY}/${IMAGE_NAME}:${TAG}")
