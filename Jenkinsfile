@@ -12,10 +12,7 @@ pipeline {
                 // Checkout the source code from the Git repository
                 checkout scm
             }
-        }
-
-        
-
+        }  
         stage('Build Docker Image') {
             steps {
                 // Build the Docker image using the Dockerfile in the repository
@@ -41,7 +38,7 @@ pipeline {
     post {
         always {
             echo 'Pipeline completed.'
-        }
+
         success {
             echo 'Docker image was built and pushed successfully.'
         }
