@@ -3,40 +3,13 @@ pipeline {
     triggers {
         githubPush()
     }
-    /*stages {
-        stage('Build') {
-            steps {
-              // Get some code from a GitHub repositor
-                sh 'cd mvn clean package'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'echo Deploying...'
-                // Add your deployment script/commands here
-            }
-        }
-    }*/
+
      environment {
         DOCKERHUB_CREDENTIALS = credentials('docker')
         DOCKER_IMAGE = 'upendrakakarla/spring-boot-2-hello-world:latest'
     }
 
     stages {
-       /* stage('Build') {
-            steps {
-                script {
-                    docker.image('maven:3.8.5-openjdk-11').inside {
-                        sh 'mvn clean package'
-                    }
-                }
-            }
-        }*/
 
         stage('Build and Test') {
       steps {
@@ -48,7 +21,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build(DOCKER_IMAGE)
+                    docker.build(Dockerfile)
                 }
             }
         }
