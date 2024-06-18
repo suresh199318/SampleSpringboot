@@ -14,16 +14,7 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                // Use a Docker container with Maven to build the Spring Boot application
-                script {
-                    docker.image('maven:3.8.5-openjdk-17').inside {
-                        sh 'mvn clean package -DskipTests'
-                    }
-                }
-            }
-        }
+        
 
         stage('Build Docker Image') {
             steps {
