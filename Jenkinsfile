@@ -15,7 +15,7 @@ pipeline {
                 // Checkout the code from the repository
                 checkout([$class: 'GitSCM', 
                               branches: [[name: '*/main']], 
-                              userRemoteConfigs: [[url: 'https://github.com/UpendraKakarla/spring-boot-hello-world-jenkins.git', credentialsId: "${git}"]]
+                              userRemoteConfigs: [[url: 'https://github.com/UpendraKakarla/spring-boot-hello-world-jenkins/main/', credentialsId: "${git}"]]
                     ])
             }
         }
