@@ -13,7 +13,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout the code from the repository
-                git 'https://github.com/UpendraKakarla/spring-boot-hello-world-jenkins.git'
+                git 'https://github.com/UpendraKakarla/spring-boot-hello-world-jenkins'
             }
         }
         stage('Build') {
