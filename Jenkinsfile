@@ -3,12 +3,14 @@ pipeline {
     triggers {
         githubPush()
     }
+    stages{
     stage('Build and Test') {
       steps {
         sh 'ls -ltr'
         // build the project and create a JAR file
         sh 'mvn clean package'
       }
+    }
     }
     /*stages {
         stage('Build') {
