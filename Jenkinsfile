@@ -17,7 +17,7 @@ pipeline {
             steps {
                 // Build the Docker image using the Dockerfile in the repository
                 script {
-                    docker.build(https://github.com/UpendraKakarla/spring-boot-hello-world-jenkins/tree/main)
+                    docker.build(Dockerfile)
                 }
             }
         }
