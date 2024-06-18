@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    git.push()
+    git.push();
     environment {
         // Docker image name and tag
         DOCKER_IMAGE = 'upendrakakarla/spring-boot-app:latest'
