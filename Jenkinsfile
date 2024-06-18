@@ -3,6 +3,13 @@ pipeline {
     triggers {
         githubPush()
     }
+    stage('Build and Test') {
+      steps {
+        sh 'ls -ltr'
+        // build the project and create a JAR file
+        sh 'mvn clean package'
+      }
+    }
     /*stages {
         stage('Build') {
             steps {
@@ -28,15 +35,15 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+       /* stage('Build') {
             steps {
                 script {
                     docker.image('maven:3.8.5-openjdk-11').inside {
-                        sh 'mvn clean package -DskipTests'
+                        sh 'mvn clean package'
                     }
                 }
             }
-        }
+        }*/
 
         stage('Build Docker Image') {
             steps {
