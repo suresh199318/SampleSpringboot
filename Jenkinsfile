@@ -3,7 +3,7 @@ pipeline {
     triggers {
         githubPush()
     }
-    stages {
+    /*stages {
         stage('Build') {
             steps {
               // Get some code from a GitHub repositor
@@ -21,7 +21,7 @@ pipeline {
                 // Add your deployment script/commands here
             }
         }
-    }
+    }*/
      environment {
         DOCKERHUB_CREDENTIALS = credentials('docker')
         DOCKER_IMAGE = 'upendrakakarla572@gmail.com/spring-boot-2-hello-world:latest'
