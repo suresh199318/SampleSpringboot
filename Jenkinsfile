@@ -1,34 +1,39 @@
 pipeline {
     agent any
-    
+
     environment {
-        // Docker image name and tag
-        DOCKER_IMAGE = 'upendrakakarla/spring-boot-app:latest'
+        // Define the Docker registry and credentials ID
+        DOCKER_REGISTRY = 'https://hub.docker.com/'
+        DOCKER_CREDENTIALS_ID = 'docker'
+        IMAGE_NAME = 'spring-boot-2-hello-world'
+        TAG = 'latest'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the source code from the Git repository
-                checkout scm
+                // Checkout the code from the repository
+                git 'https://github.com/UpendraKakarla/spring-boot-hello-world-jenkins.git'
             }
-        }  
-        stage('Build Docker Image') {
+        }
+        stage('Build') {
             steps {
-                // Build the Docker image using the Dockerfile in the repository
                 script {
-                    docker.build(Dockerfile)
+                    // Build the Spring Boot application
+                    sh './mvnw clean package'
+
+                    // Build the Docker image
+                    def app = docker.build("${DOCKER_REGISTRY}/${IMAGE_NAME}:${TAG}")
                 }
             }
         }
-
-        stage('Push Docker Image') {
+        stage('Push') {
             steps {
-                // Login to Docker Hub and push the built Docker image
-                withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PSW')]) {
-                    script {
-                        sh 'echo $DOCKERHUB_PSW | docker login -u $DOCKERHUB_USER --password-stdin'
-                        sh "docker push ${env.DOCKER_IMAGE}"
+                script {
+                    // Log in to the Docker registry
+                    docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
+                        // Push the Docker image to the registry
+                        app.push()
                     }
                 }
             }
@@ -37,13 +42,8 @@ pipeline {
 
     post {
         always {
-            echo 'Pipeline completed.'
-        }
-        success {
-            echo 'Docker image was built and pushed successfully.'
-        }
-        failure {
-            echo 'Pipeline failed.'
+            // Clean up the workspace
+            cleanWs()
         }
     }
 }

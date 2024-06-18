@@ -1,12 +1,14 @@
-# Stage 1: Build the application
-FROM maven:3.8.5-openjdk-11 AS build
-WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-RUN mvn clean package -DskipTests
+# Use a base image with Java runtime
+FROM openjdk:11-jre-slim
 
-# Stage 2: Run the application
-FROM openjdk:17-jdk-slim
-VOLUME /tmp
-COPY --from=build /app/target/spring-boot-2-hello-world-1.0.2-SNAPSHOT.jar /app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the Spring Boot application JAR file into the container
+COPY target/spring-boot-2-hello-world.jar /app/spring-boot-2-hello-world.jar
+
+# Expose port 8081
+EXPOSE 8080
+
+# Run the Spring Boot application
+ENTRYPOINT ["java", "-jar", "/app/spring-boot-2-hello-world.jar"]
