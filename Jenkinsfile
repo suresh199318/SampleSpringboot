@@ -23,7 +23,7 @@ pipeline {
         }
     }*/
      environment {
-        DOCKERHUB_CREDENTIALS = credentials('docker-hub')
+        DOCKERHUB_CREDENTIALS = credentials('docker')
         DOCKER_IMAGE = 'upendrakakarla/spring-boot-2-hello-world:latest'
     }
 
