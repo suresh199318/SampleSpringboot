@@ -22,6 +22,7 @@ pipeline {
             steps {
                 script {
                     // Build the Spring Boot application
+                    sh './mvn --version'
                     sh './mvn clean package'
 
                     // Build the Docker image
