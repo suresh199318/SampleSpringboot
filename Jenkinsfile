@@ -24,9 +24,10 @@ pipeline {
                     // Build the Spring Boot application
                     sh 'mvn --version'
                     sh 'mvn clean package'
-
+                    echo 'Build on-going..'
                     // Build the Docker image
                     def app = docker.build("${DOCKER_REGISTRY}/${IMAGE_NAME}:${TAG}")
+                    echo 'build done'
                 }
             }
         }
