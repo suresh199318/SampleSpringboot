@@ -38,14 +38,17 @@ pipeline {
         DOCKER_CREDENTIALS_ID = 'docker'
         IMAGE_NAME = 'spring-boot-2-hello-world-1.0.2-SNAPSHOT'
         TAG = 'latest'
-                def app = docker.build("${DOCKER_REGISTRY}/${IMAGE_NAME}:${TAG}")
+                //def app = docker.build("${DOCKER_REGISTRY}/${IMAGE_NAME}:${TAG}")
     }
             steps {
                 script {
                     // Log in to the Docker registry
+                    echo 'pushing image'
+                    def app = docker.build("${DOCKER_REGISTRY}/${IMAGE_NAME}:${TAG}")
                     docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
                         // Push the Docker image to the registry
                         app.push()
+                        echo 'done'
                     }
                 }
             }
