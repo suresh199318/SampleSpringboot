@@ -1,13 +1,13 @@
 pipeline {
     agent any
 
-    environment {
+   // environment {
         // Define the Docker registry and credentials ID
-        DOCKER_REGISTRY = 'hub.docker.com/'
-        DOCKER_CREDENTIALS_ID = 'docker'
-        IMAGE_NAME = 'spring-boot-2-hello-world-1.0.2-SNAPSHOT'
-        TAG = 'latest'
-    }
+     //   DOCKER_REGISTRY = 'hub.docker.com/'
+       // DOCKER_CREDENTIALS_ID = 'docker'
+       // IMAGE_NAME = 'spring-boot-2-hello-world-1.0.2-SNAPSHOT'
+        //TAG = 'latest'
+    //}
 
     stages {
         stage('Checkout') {
@@ -26,12 +26,20 @@ pipeline {
                     sh 'mvn clean package'
                     echo 'Build on-going..'
                     // Build the Docker image
-                    def app = docker.build("${DOCKER_REGISTRY}/${IMAGE_NAME}:${TAG}")
+                    
                     echo 'build done'
                 }
             }
         }
         stage('Push') {
+            environment {
+        // Define the Docker registry and credentials ID
+        DOCKER_REGISTRY = 'hub.docker.com/'
+        DOCKER_CREDENTIALS_ID = 'docker'
+        IMAGE_NAME = 'spring-boot-2-hello-world-1.0.2-SNAPSHOT'
+        TAG = 'latest'
+                def app = docker.build("${DOCKER_REGISTRY}/${IMAGE_NAME}:${TAG}")
+    }
             steps {
                 script {
                     // Log in to the Docker registry
