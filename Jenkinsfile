@@ -13,6 +13,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 sh 'ls -ltr'
+                git branch: 'main',
                git 'https://github.com/UpendraKakarla/spring-boot-hello-world-jenkins.git'
                 echo 'checkout done'
             }
