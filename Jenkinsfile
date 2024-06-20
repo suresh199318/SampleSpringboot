@@ -51,10 +51,10 @@ pipeline {
                     //docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
                         // Push the Docker image to the registry
                       //  app.push()
-                    //sh 'docker build -t ${DOCKER_IMAGE} .'
-                    sh 'docker buildx build --platform linux/amd64 \
-                                            -t ${REGISTRY_CREDENTIALS}/${DOCKER_IMAGE}:${BUILD_NUMBER} \
-                                            --push .'
+                    sh 'cd spring-boot-hello-world-jenkins && docker build -t ${DOCKER_IMAGE} .'
+                    //sh 'docker buildx build --platform linux/amd64 \
+                                           // -t ${REGISTRY_CREDENTIALS}/${DOCKER_IMAGE}:${BUILD_NUMBER} \
+                                            //--push .'
             def dockerImage = docker.image("${DOCKER_IMAGE}")
             docker.withRegistry('https://hub.docker.com/', "docker") {
                 dockerImage.push()
