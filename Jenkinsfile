@@ -1,13 +1,13 @@
 pipeline {
     agent any
 
-   // environment {
+    environment {
         // Define the Docker registry and credentials ID
      //   DOCKER_REGISTRY = 'hub.docker.com/'
        // DOCKER_CREDENTIALS_ID = 'docker'
        // IMAGE_NAME = 'spring-boot-2-hello-world-1.0.2-SNAPSHOT'
         //TAG = 'latest'
-    //}
+    }
 
     stages {
         stage('Checkout') {
@@ -34,20 +34,27 @@ pipeline {
         stage('Push') {
             environment {
         // Define the Docker registry and credentials ID
-        DOCKER_REGISTRY = 'hub.docker.com/'
-        DOCKER_CREDENTIALS_ID = 'docker'
-        IMAGE_NAME = 'spring-boot-2-hello-world-1.0.2-SNAPSHOT'
-        TAG = 'latest'
+        //DOCKER_REGISTRY = 'hub.docker.com/'
+        //DOCKER_CREDENTIALS_ID = 'docker'
+        //IMAGE_NAME = 'spring-boot-2-hello-world-1.0.2-SNAPSHOT'
+        //TAG = 'latest'
                 //def app = docker.build("${DOCKER_REGISTRY}/${IMAGE_NAME}:${TAG}")
+                DOCKER_IMAGE = "upendrakakarla/seconddocker:${BUILD_NUMBER}"
+        // DOCKERFILE_LOCATION = "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
+        REGISTRY_CREDENTIALS = credentials('docker')
     }
             steps {
                 script {
                     // Log in to the Docker registry
                     echo 'pushing image'
-                    def app = docker.build("${IMAGE_NAME}:${TAG}")
-                    docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
+                    //def app = docker.build("${IMAGE_NAME}:${TAG}")
+                    //docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
                         // Push the Docker image to the registry
-                        app.push()
+                      //  app.push()
+                    sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && docker build -t ${DOCKER_IMAGE} .'
+            def dockerImage = docker.image("${DOCKER_IMAGE}")
+            docker.withRegistry('https://hub.docker.com/', "docker") {
+                dockerImage.push()
                         echo 'done'
                     }
                 }
