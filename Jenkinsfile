@@ -1,13 +1,13 @@
 pipeline {
     agent any
 
-    environment {
+    //environment {
         // Define the Docker registry and credentials ID
      //   DOCKER_REGISTRY = 'hub.docker.com/'
        // DOCKER_CREDENTIALS_ID = 'docker'
        // IMAGE_NAME = 'spring-boot-2-hello-world-1.0.2-SNAPSHOT'
         //TAG = 'latest'
-    }
+    //}
 
     stages {
         stage('Checkout') {
