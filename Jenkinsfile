@@ -51,7 +51,7 @@ pipeline {
                     //docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
                         // Push the Docker image to the registry
                       //  app.push()
-                    sh 'cd spring-boot-hello-world-jenkins && docker build -t ${DOCKER_IMAGE} .'
+                    sh 'docker build -t ${DOCKER_IMAGE} .'
                     
             def dockerImage = docker.image("${DOCKER_IMAGE}")
             docker.withRegistry('https://hub.docker.com/', "docker") {
