@@ -32,7 +32,7 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    docker.build("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}")
+                    docker.build("${env.DOCKER_IMAGE}:${env.DOCKER_TAG} .")
                 }
             }
         }
