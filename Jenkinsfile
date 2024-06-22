@@ -12,7 +12,7 @@ pipeline {
             steps {
                 // Checkout source code from the repository
                 git branch: 'main',
-                git 'https://github.com/UpendraKakarla/spring-boot-hello-world-jenkins.git'
+                url: 'https://github.com/UpendraKakarla/spring-boot-hello-world-jenkins.git'
             }
         }
 
