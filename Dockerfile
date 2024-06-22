@@ -5,7 +5,7 @@ FROM openjdk:11-jre-slim
 WORKDIR /app
 
 # Copy the Spring Boot application JAR file into the container
-COPY target/spring-boot-2-hello-world.jar1.0.2-SNAPSHOT.jar /app.jar
+COPY target/spring-boot-2-hello-world-1.0.2-SNAPSHOT.jar /app.jar
 
 # Expose port 8081
 EXPOSE 8081
