@@ -28,12 +28,11 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Docker Build') {
             steps {
                 script {
                     // Build the Docker image
                     docker.build --no-cache -t "${env.DOCKER_IMAGE}:${env.DOCKER_TAG}" .
-
                 }
             }
         }
