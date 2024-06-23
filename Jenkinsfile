@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "upendrakakarla572@gmail.com/sample2"
+        DOCKER_IMAGE = "upendrakakarla/sample2"
         DOCKER_TAG = "${env.BUILD_NUMBER}"
         DOCKER_CREDENTIALS_ID = 'docker' // ID of the Docker registry credentials stored in Jenkins
         //MAVEN_HOME = tool 'Maven 3' // Name of the Maven installation in Jenkins
