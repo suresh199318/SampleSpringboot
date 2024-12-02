@@ -2,10 +2,10 @@ name: Release the artifact jar on GitHub
 
 on:
   # push:
-  #   branches: [ "main" ]
+  #   branches: [ main ]
   pull_request:
     branches: 
-      - main"
+      - main
     types:
       - closed
 
