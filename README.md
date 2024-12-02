@@ -9,7 +9,9 @@
 > **Note:** First two commands need to run inside the root folder of this project i.e inside the **spring-boot-hello-world** folder
 
 
-- **Using maven** <br/>``` mvn spring-boot:run```
+- **Using maven** 
+  <br/>```docker run --rm -it --name=mvn --mount type=bind,source=$(pwd),target=/spring-boot-hello-world docker.io/library/maven:latest bash -c "mvn --file /spring-boot-hello-world/pom.xml clean package"```
+  <br/>```docker run --rm -it --name=mvn -p 8080:8080 --mount type=bind,source=$(pwd),target=/spring-boot-hello-world docker.io/library/maven:latest bash -c "mvn --file /spring-boot-hello-world/pom.xml spring-boot:run"```
 
 
 - **From jar file**

@@ -1,0 +1,67 @@
+name: Release the artifact jar on GitHub
+
+on:
+  # push:
+  #   branches: [ "main" ]
+  pull_request:
+    branches: 
+      - main"
+    types:
+      - closed
+
+jobs:
+  release:
+    if: github.event.pull_request.merged == true
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Code checkout
+      uses: actions/checkout@v4
+    
+    - name: Set up JDK 8
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '8'
+
+    - name: Build and package
+      run: mvn -B --file pom.xml versions:set -DremoveSnapshot && mvn -B --file pom.xml clean package
+    
+    - name: Id the jar is created
+      id: jar-path
+      run: echo "JAR_PATH=$(find ./target -name spring-boot-2-hello-world*.jar)" >> "$GITHUB_OUTPUT"
+
+    - name: Artifact version
+      id: artifact-version
+      run: echo "ARTIFACT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> "$GITHUB_OUTPUT"
+
+    - name: Upload Maven build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ steps.jar-path.outputs.ARTIFACT_VERSION }}
+        # name: spring-boot-2-hello-world
+        path: ${{ steps.jar-path.outputs.JAR_PATH }}
+        if-no-files-found: error
+        retention-days: 1
+        overwrite: true
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v6
+      with:
+        build-args: ${{ steps.jar-path.outputs.ARTIFACT_VERSION }}
+        context: .
+        push: true
+        tags: greenhorn/spring-boot-hello-world:latest,greenhorn/spring-boot-hello-world:${{ steps.jar-path.outputs.ARTIFACT_VERSION }}
