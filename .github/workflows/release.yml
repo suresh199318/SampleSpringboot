@@ -64,4 +64,4 @@ jobs:
         build-args: jar_version=${{ steps.artifact-version.outputs.ARTIFACT_VERSION }}
         context: .
         push: true
-        tags: greenhorn/spring-boot-hello-world:latest,greenhorn/spring-boot-hello-world:${{ steps.artifact-version.outputs.ARTIFACT_VERSION }}
+        tags: greenhorn/spring-boot-hello-world:${{ steps.artifact-version.outputs.ARTIFACT_VERSION }}
