@@ -39,7 +39,7 @@ jobs:
     - name: Upload Maven build artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ steps.jar-path.outputs.ARTIFACT_VERSION }}
+        name: spring-boot-2-hello-world-${{ steps.jar-path.outputs.ARTIFACT_VERSION }}
         # name: spring-boot-2-hello-world
         path: ${{ steps.jar-path.outputs.JAR_PATH }}
         if-no-files-found: error
