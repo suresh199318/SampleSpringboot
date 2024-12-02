@@ -61,7 +61,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v6
       with:
-        build-args: ${{ steps.artifact-version.outputs.ARTIFACT_VERSION }}
+        build-args: jar_version=${{ steps.artifact-version.outputs.ARTIFACT_VERSION }}
         context: .
         push: true
         tags: greenhorn/spring-boot-hello-world:latest,greenhorn/spring-boot-hello-world:${{ steps.artifact-version.outputs.ARTIFACT_VERSION }}
