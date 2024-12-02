@@ -45,6 +45,9 @@ jobs:
     - name: Build with Maven
       run: mvn -B --file pom.xml package
     
+    - name: List artifacts
+      run: find ./target -name "spring-boot-2-hello-world-*-SNAPSHOT.jar"
+
     # - name: Staging
     #   run: '[ $(find ./target -name "spring-boot-2-hello-world-*-SNAPSHOT.jar") ] && mkdir staging && cp target/*.jar staging'
 
