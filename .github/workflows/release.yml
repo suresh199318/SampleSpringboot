@@ -4,7 +4,7 @@ on:
   # push:
   #   branches: [ main ]
   pull_request:
-    branches: 
+    branches:
       - main
     types:
       - closed
@@ -39,7 +39,7 @@ jobs:
     - name: Upload Maven build artifact
       uses: actions/upload-artifact@v4
       with:
-        name: spring-boot-2-hello-world-${{ steps.jar-path.outputs.ARTIFACT_VERSION }}
+        name: spring-boot-2-hello-world-${{ steps.artifact-version.outputs.ARTIFACT_VERSION }}
         # name: spring-boot-2-hello-world
         path: ${{ steps.jar-path.outputs.JAR_PATH }}
         if-no-files-found: error
@@ -61,7 +61,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v6
       with:
-        build-args: ${{ steps.jar-path.outputs.ARTIFACT_VERSION }}
+        build-args: ${{ steps.artifact-version.outputs.ARTIFACT_VERSION }}
         context: .
         push: true
-        tags: greenhorn/spring-boot-hello-world:latest,greenhorn/spring-boot-hello-world:${{ steps.jar-path.outputs.ARTIFACT_VERSION }}
+        tags: greenhorn/spring-boot-hello-world:latest,greenhorn/spring-boot-hello-world:${{ steps.artifact-version.outputs.ARTIFACT_VERSION }}
