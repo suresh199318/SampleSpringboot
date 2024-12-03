@@ -1,5 +1,6 @@
 name: Release the artifact jar on GitHub
 
+
 on:
   # push:
   #   branches: [ main ]
@@ -8,6 +9,7 @@ on:
       - main
     types:
       - closed
+
 
 jobs:
   release:
@@ -18,7 +20,7 @@ jobs:
     steps:
     - name: Code checkout
       uses: actions/checkout@v4
-    
+
     - name: Set up JDK 8
       uses: actions/setup-java@v4
       with:
@@ -27,7 +29,7 @@ jobs:
 
     - name: Build and package
       run: mvn -B --file pom.xml versions:set -DremoveSnapshot && mvn -B --file pom.xml clean package
-    
+
     - name: Id the jar is created
       id: jar-path
       run: echo "JAR_PATH=$(find ./target -name spring-boot-2-hello-world*.jar)" | tee -a "$GITHUB_OUTPUT"
@@ -65,3 +67,10 @@ jobs:
         context: .
         push: true
         tags: greenhorn/spring-boot-hello-world:${{ steps.artifact-version.outputs.ARTIFACT_VERSION }}
+
+  analyse:
+    uses: SemtechTasks/spring-boot-hello-world/.github/workflows/analyse.yml@main
+    with:
+      source-path: ./target
+    secrets:
+      sonarToken: ${{ secrets.SONAR_TOKEN }}
