@@ -14,6 +14,7 @@ jobs:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   
   build_push_artifacts:
+    needs: sonarqube_scan
     uses: rahulkausale/spring-boot-hello-world/.github/workflows/build_push_artifacts.yml@main
     with:
       docker_repo: rahulkausale/hello-world
