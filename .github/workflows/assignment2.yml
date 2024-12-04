@@ -1,4 +1,4 @@
-name: Java CI with Maven and SonarQube scan
+name: Assignment 2 (Scan with SonarQube) 
 
 on:
   push:
