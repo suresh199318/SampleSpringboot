@@ -22,12 +22,12 @@ jobs:
       DPASSWORD: ${{ secrets.DPASSWORD }}
       DUSERNAME: ${{ secrets.DUSERNAME }}
   
-  deploy_helm_chart:
-    needs: build_push_artifacts
-    uses: deliverybot/helm@v1
-    with:
-      release: 'hello-world'
-      namespace: 'default'
-      chart: 'spring-boot-hello-world'
-      values: |
-        tag: latest
+  # deploy_helm_chart:
+  #   needs: build_push_artifacts
+  #   uses: deliverybot/helm@v1
+  #   with:
+  #     release: 'hello-world'
+  #     namespace: 'default'
+  #     chart: 'spring-boot-hello-world'
+  #     values: |
+  #       tag: latest
