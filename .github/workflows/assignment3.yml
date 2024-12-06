@@ -1,0 +1,23 @@
+name: Assignment 3 (Reusable workflows)
+
+on:
+  push:
+    branches: [ "feature/**" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  sonarqube_scan:
+    uses: rahulkausale/spring-boot-hello-world/.github/workflows/sonarqube_scan.yml@main
+    secrets:
+      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  
+  build_push_artifacts:
+    needs: sonarqube_scan
+    uses: rahulkausale/spring-boot-hello-world/.github/workflows/build_push_artifacts.yml@main
+    with:
+      docker_repo: rahulkausale/hello-world
+    secrets:
+      DPASSWORD: ${{ secrets.DPASSWORD }}
+      DUSERNAME: ${{ secrets.DUSERNAME }}
