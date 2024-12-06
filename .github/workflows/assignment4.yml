@@ -1,4 +1,4 @@
-name: Assignment 3 (Reusable workflows)
+name: Assignment 4 (deploy helm)
 
 on:
   push:
@@ -26,16 +26,8 @@ jobs:
     needs: build_push_artifacts
     uses: deliverybot/helm@v1
     with:
-      release: 'nginx'
+      release: 'hello-world'
       namespace: 'default'
-      chart: 'app'
-      token: '${{ github.token }}'
+      chart: 'spring-boot-hello-world'
       values: |
-        name: foobar
-      value-files: >-
-        [
-          "values.yaml", 
-          "values.production.yaml"
-        ]
-    env:
-      KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
+        tag: latest
