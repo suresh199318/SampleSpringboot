@@ -23,6 +23,7 @@ jobs:
       DUSERNAME: ${{ secrets.DUSERNAME }}
   
   deploy_helm_chart:
+    needs: build_push_artifacts 
     runs-on: ubuntu-latest
     steps:
     - name: 'Deploy'
