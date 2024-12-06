@@ -27,6 +27,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: 'Deploy'
-      run: helm -n default install hello-world ./spring-boot-hello-world-0.1.0.tgz --set tag=latest
+      run: helm -n default install hello-world charts/spring-boot-hello-world-0.1.0.tgz --set tag=latest
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
