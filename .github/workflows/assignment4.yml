@@ -31,7 +31,7 @@ jobs:
       with:
         release: 'hello-world'
         namespace: 'default'
-        chart: 'spring-boot-hello-world'
+        chart: 'charts/spring-boot-hello-world-0.1.0.tgz'
         values: |
           tag: latest
       env:
