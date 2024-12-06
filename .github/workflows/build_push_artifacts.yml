@@ -36,3 +36,13 @@ jobs:
 
     - name: Push the image to docker registry
       run: docker push ${{ inputs.docker_repo }}:latest 
+    
+    - name: Build helm chart
+      run: helm package charts/spring-boot-hello-world
+
+    - name: Generate the index.yaml
+      run: helm repo index --url https://rahulkausale.github.io/spring-boot-hello-world/charts/ .
+
+    - name: Push the helm chart
+      run: git add charts/ && git commit -m "Pushing chart" && git push
+  
