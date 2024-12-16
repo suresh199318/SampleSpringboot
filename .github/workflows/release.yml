@@ -30,24 +30,6 @@ jobs:
     - name: Build and package
       run: mvn -B --file pom.xml versions:set -DremoveSnapshot && mvn -B --file pom.xml clean package
 
-    - name: Id the jar is created
-      id: jar-path
-      run: echo "JAR_PATH=$(find ./target -name spring-boot-2-hello-world*.jar)" | tee -a "$GITHUB_OUTPUT"
-
-    - name: Artifact version
-      id: artifact-version
-      run: echo "ARTIFACT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" | tee -a "$GITHUB_OUTPUT"
-
-    - name: Upload Maven build artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: spring-boot-2-hello-world-${{ steps.artifact-version.outputs.ARTIFACT_VERSION }}
-        # name: spring-boot-2-hello-world
-        path: ${{ steps.jar-path.outputs.JAR_PATH }}
-        if-no-files-found: error
-        retention-days: 1
-        overwrite: true
-
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
 

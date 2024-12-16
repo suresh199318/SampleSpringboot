@@ -36,14 +36,25 @@ jobs:
     - name: Unittest execution
       run: mvn -B --file pom.xml test
 
-    - name: Build with Maven
+    - name: Build jar file with Maven
       run: mvn -B --file pom.xml package
 
-    - name: List artifacts
-      run: find ./target -name "spring-boot-2-hello-world-*-SNAPSHOT.jar"
+    - name: Id the jar is created
+      id: jar-path
+      run: echo "JAR_PATH=$(find ./target -name spring-boot-2-hello-world*.jar)" | tee -a "$GITHUB_OUTPUT"
 
-    # - name: Staging
-    #   run: '[ $(find ./target -name "spring-boot-2-hello-world-*-SNAPSHOT.jar") ] && mkdir staging && cp target/*.jar staging'
+    - name: Artifact version
+      id: artifact-version
+      run: echo "ARTIFACT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" | tee -a "$GITHUB_OUTPUT"
+
+    - name: Upload Maven build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: spring-boot-2-hello-world-${{ steps.artifact-version.outputs.ARTIFACT_VERSION }}
+        path: ${{ steps.jar-path.outputs.JAR_PATH }}
+        if-no-files-found: error
+        retention-days: 1
+        overwrite: true
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
