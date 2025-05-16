@@ -1,13 +1,12 @@
 package com.example.helloworld;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Component;
+import java.util.function.Function;
 
-@SpringBootApplication
-public class HelloWorldApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(HelloWorldApplication.class, args);
+@Component
+public class HelloWorldHandler implements Function<String, String> {
+    @Override
+    public String apply(String input) {
+        return "Hello, " + input + "!";
     }
-
 }
